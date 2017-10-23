@@ -125,15 +125,13 @@ $host='localhost';
 $user='root';
 $pass='';
 $database='dbstbifix';
-
-$keyword=@$_POST[keyword];
-//$keyword='indonesia'; //masalahnya disini, keyword tidak mau dipanggil
+$keyword=$_POST['keyword'];;
 $conn=mysql_connect($host,$user,$pass);
 mysql_select_db($database);
 $resCache = mysql_query("SELECT *  FROM tbcache WHERE Query = '$keyword' ORDER BY Value DESC");
 	$num_rows = mysql_num_rows($resCache);
 	if ($num_rows >0) {
-echo "Hasil ditemukan.";
+
 		//tampilkan semua berita yang telah terurut
 		while ($rowCache = mysql_fetch_array($resCache)) {
 			$docId = $rowCache['DocId'];
@@ -154,9 +152,7 @@ echo "Hasil ditemukan.";
 	}
 		else
 		{
-			echo "Hasil tidak ditemukan.";
 		hitungsim($keyword);
-		
 		//pasti telah ada dalam tbcache		
 		$resCache = mysql_query("SELECT *  FROM tbcache WHERE Query = '$keyword' ORDER BY Value DESC");
 		$num_rows = mysql_num_rows($resCache);
