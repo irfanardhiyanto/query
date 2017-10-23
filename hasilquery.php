@@ -39,26 +39,20 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-$hasil=@$_POST[$katakunci];
-$sql = "SELECT distinct nama_file,token,tokenstem,tokenstem2 FROM `dokumen` WHERE token like '%$hasil%'";
-//$sql = "SELECT distinct nama_file,token,tokenstem FROM `dokumen` WHERE MATCH (token,tokenstem) AGAINST ('$hasil' IN BOOLEAN MODE)";
-
-
-echo $sql;
+$hasil=@$_POST['katakunci'];
+$sql = "SELECT distinct nama_file,token,tokenstem,tokenstem2 FROM `dokumen` where token like '%$hasil%'";
+//$sql = "SELECT distinct nama_file,token,tokenstem,tokenstem2 FROM `dokumen` WHERE MATCH (token) AGAINST ('$hasil' IN BOOLEAN MODE)";
 $result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
+if (@$result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo "Nama file: " . $row["nama_file"]. " - Token: " . $row["token"]. " " . $row["tokenstem"]. "<br>";
+        echo "<br>" ."Nama file: " . $row["nama_file"]. " - Token: " . $row["token"]. " " . $row["tokenstem"]. " " .$row["tokenstem2"]. "<br>";
     }
 } else {
     echo "0 results";
 }
 $conn->close();
-
 ///
-
 ?>
 <center>
 <h4 style="background-color:DodgerBlue">Irfan Ardhiyanto (15.01.53.0061) <br> Apriana Panca K (15.01.53.0065) <br> Fadilla Maulida (15.01.53.0082)</h4> 
